@@ -22,8 +22,7 @@ public class Main {
      * @return user with max balance wrapped with optional
      */
     public Optional<User> findRichestUser() {
-        //throw new ExerciseNotCompletedException();
-        return users.stream().max(Comparator.comparing(user -> user.getBalance()));
+        return users.stream().max(Comparator.comparing(User::getBalance));
     }
 
     /**
@@ -34,7 +33,7 @@ public class Main {
      */
     public List<User> findUsersByBirthdayMonth(Month birthdayMonth) {
 
-        return users.stream().filter(user -> user.getBirthDay().getMonth().equals(birthdayMonth)).collect(Collectors.toList());
+        return users.stream().filter(user -> Objects.nonNull(user.getBirthDay())).filter(user -> user.getBirthDay().getMonth().equals(birthdayMonth)).toList();
     }
 
 
@@ -57,7 +56,7 @@ public class Main {
      */
     public BigDecimal calculateTotalBalance() {
         return users.stream().map(User::getBalance).reduce(BigDecimal.ZERO,
-                (balance, balance2) -> balance.add(balance2));
+                BigDecimal::add);
     }
 
     /**
@@ -65,7 +64,7 @@ public class Main {
      * @return list of users sorted by first and last names
      */
     public List<User> sortByFirstAndLastNames() {
-        return users.stream().sorted(Comparator.comparing(User::getFirstName).thenComparing(User::getLastName)).collect(Collectors.toList());
+        return users.stream().sorted(Comparator.comparing(User::getFirstName).thenComparing(User::getLastName)).toList();
     }
 
     /**

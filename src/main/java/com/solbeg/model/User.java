@@ -1,16 +1,12 @@
 package com.solbeg.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
 public class User {
     private Long id;
@@ -20,4 +16,18 @@ public class User {
     private BigDecimal balance;
     private LocalDate birthDay;
     private LocalDate createdOn;
+
+
+    public User(Long id, String firstName, String lastName, String email, BigDecimal balance, LocalDate birthDay, LocalDate createdOn) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.balance = balance;
+        this.birthDay = birthDay;
+        this.createdOn = createdOn;
+    }
+
+    public User() {
+    }
 }
